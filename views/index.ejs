@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Automated Ticketing System</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1>Ticket Management System</h1>
+
+    <form action="/create_ticket" method="post">
+        <input type="text" name="title" placeholder="Ticket Title" required>
+        <textarea name="description" placeholder="Describe the issue" required></textarea>
+        <select name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <button type="submit">Submit Ticket</button>
+    </form>
+
+    <h2>Existing Tickets</h2>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <% tickets.forEach(ticket => { %>
+        <tr>
+            <td><%= ticket.title %></td>
+            <td><%= ticket.description %></td>
+            <td><%= ticket.priority %></td>
+            <td><%= ticket.status %></td>
+            <td>
+                <form action="/update_ticket/<%= ticket.id %>" method="post">
+                    <select name="status">
+                        <option value="Open">Open</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+</body>
+</html>
